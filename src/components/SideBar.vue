@@ -44,8 +44,8 @@ export default {
       if (this.$store.state.sidebarResult.length == 0) {
         var _self = this;
         var rspdata;
-        axios.get('http://localhost:5000/api/sidebar')
-        // axios.get('http://119.29.253.254:8000/api/sidebar')
+        // axios.get('http://localhost:5000/api/sidebar')
+        axios.get('http://119.29.253.254:8000/api/sidebar')
           .then(function (response) {
             _self.$store.dispatch('getSidebar', response.data);
             rspdata = response.data;
@@ -53,6 +53,7 @@ export default {
           .catch(function (error) {
             console.log(error);
           })
+        this.$nextTick(function () { });
         return rspdata;
       }
       return this.$store.state.sidebarResult

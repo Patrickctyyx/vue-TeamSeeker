@@ -58,8 +58,8 @@ export default {
       if (this.$store.state.indexResult.length == 0) {
         var _self = this;
         var rspdata;
-        axios.get('http://localhost:5000/api/index')
-        // axios.get('http://119.29.253.254:8000/api/index')
+        // axios.get('http://localhost:5000/api/index')
+        axios.get('http://119.29.253.254:8000/api/index')
           .then(function (response) {
             _self.$store.dispatch('getIndex', response.data);
             rspdata = response.data;
@@ -67,6 +67,7 @@ export default {
           .catch(function (error) {
             console.log(error);
           })
+        this.$nextTick(function () { });
         return rspdata;
       }
       return this.$store.state.indexResult
@@ -75,8 +76,8 @@ export default {
   methods: {
     showMore(page) {
       var _self = this;
-      axios.get('http://localhost:5000/api/index', {
-      // axios.get('http://119.29.253.254:8000/api/index', {
+      // axios.get('http://localhost:5000/api/index', {
+      axios.get('http://119.29.253.254:8000/api/index', {
         params: {
           "page": page + 1
         }
