@@ -1,4 +1,4 @@
-# vue-seeker
+# vue-TeamSeeker
 
 > A Vue.js project, front page for TeamSeeker.
 
