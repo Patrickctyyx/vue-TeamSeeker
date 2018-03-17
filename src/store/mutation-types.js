@@ -1,3 +1,4 @@
 export const GET_INDEX_CONTENT = 'GET_INDEX_CONTENT';
 export const SHOW_MORE_INDEX = 'SHOW_MORE_INDEX';
 export const GET_SIDEBAR_CONTENT = 'GET_SIDEBAR_CONTENT';
+export const INIT_INFO = 'INIT_INFO';

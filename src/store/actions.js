@@ -11,5 +11,9 @@ export default {
 
     getSidebar({ commit }, contentList) {
         commit(types.GET_SIDEBAR_CONTENT, contentList)
+    },
+
+    initInfo({ commit }) {
+        commit(types.INIT_INFO)
     }
 }

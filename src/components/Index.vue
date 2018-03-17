@@ -11,13 +11,13 @@
           </div>
           <div class="col s10">
             <h5 v-if="result.type === 0" class="card-title">
-              {{ result.comp_name }}
+              <router-link :to="{ path: 'item', query: { id: result.id }}" style="color: black">{{ result.comp_name }}</router-link>
               <span v-if="result.status=='processing'" class="new badge" data-badge-caption="进行中"></span>
               <span v-else-if="result.status=='pending'" class="new badge blue" data-badge-caption="即将开始"></span>
               <span v-else class="new badge red" data-badge-caption="已结束"></span>
             </h5>
             <h5 v-else class="card-title">
-              {{ result.theme }}
+              <router-link :to="{ path: 'item', query: { id: result.id }}" style="color: black">{{ result.theme }}</router-link>
               <span v-if="result.status=='processing'" class="new badge" data-badge-caption="进行中"></span>
               <span v-else-if="result.status=='pending'" class="new badge blue" data-badge-caption="即将开始"></span>
               <span v-else class="new badge red" data-badge-caption="已结束"></span>
@@ -55,29 +55,17 @@ export default {
   },
   computed: {
     indexResult() {
-      if (this.$store.state.indexResult.length == 0) {
-        var _self = this;
-        var rspdata;
-        // axios.get('http://localhost:5000/api/index')
-        axios.get('http://119.29.253.254:8000/api/index')
-          .then(function (response) {
-            _self.$store.dispatch('getIndex', response.data);
-            rspdata = response.data;
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
-        this.$nextTick(function () { });
-        return rspdata;
-      }
       return this.$store.state.indexResult
     }
   },
   methods: {
     showMore(page) {
+      if (this.$store.state.indexResult.length == 0) {
+        return this.$store.dispatch('initInfo');
+      }
       var _self = this;
-      // axios.get('http://localhost:5000/api/index', {
-      axios.get('http://119.29.253.254:8000/api/index', {
+      axios.get('http://localhost:5000/api/index', {
+      // axios.get('http://119.29.253.254:8000/api/index', {
         params: {
           "page": page + 1
         }
@@ -90,17 +78,6 @@ export default {
           alert('没有更多页面!');
           console.log(error);
         })
-      // var qs = require('qs');
-      // axios.post('http://119.29.253.254:8000/api/wxlogin', qs.stringify({
-      //     js_code: '001U3te40K6KSD1Bpaf40DKAe40U3tel'
-      // })
-      // )
-      //   .then(function (response) {
-      //     console.log(response);
-      //   })
-      //   .catch(function (error) {
-      //     console.log('aaa', error);
-      //   })
     }
   }
 }

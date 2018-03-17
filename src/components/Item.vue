@@ -22,11 +22,20 @@
               <div class="">
                 <div class="card-panel white lighten-5 z-depth-1">
                   <div class="black-text">
-                    <h1>挑战杯<span class="new badge" data-badge-caption="进行中"></span></h1>
+                    <h1 v-if="info.type === 0">{{ info.comp_name }}
+                      <span v-if="info.status=='processing'" class="new badge" data-badge-caption="进行中"></span>
+                      <span v-else-if="info.status=='pending'" class="new badge blue" data-badge-caption="即将开始"></span>
+                      <span v-else class="new badge red" data-badge-caption="已结束"></span>
+                    </h1>
+                    <h1 v-else>{{ info.theme }}
+                      <span v-if="info.status=='processing'" class="new badge" data-badge-caption="进行中"></span>
+                      <span v-else-if="info.status=='pending'" class="new badge blue" data-badge-caption="即将开始"></span>
+                      <span v-else class="new badge red" data-badge-caption="已结束"></span>
+                    </h1>
                     <p class="black-text">
-                      <i class="fa fa-clock-o" aria-hidden="true"></i> 2017-11-11&nbsp;&nbsp;&nbsp;
-                      <i class="fa fa-user" aria-hidden="true"></i> 项目人数：3 / 5 &nbsp;&nbsp;&nbsp;
-                      <i class="fa fa-fire" aria-hidden="true"></i> 热度：66 
+                      <i class="fa fa-clock-o" aria-hidden="true"></i> {{ info.last_modified.split(" ")[0] }}&nbsp;&nbsp;&nbsp;
+                      <i class="fa fa-user" aria-hidden="true"></i> 项目人数：{{ info.current_num }}/{{ info.num }} &nbsp;&nbsp;&nbsp;
+                      <i class="fa fa-fire" aria-hidden="true"></i> 热度：{{ info.apply_count }} 
                     </p><br>
                   </div>
                 </div>
@@ -35,7 +44,7 @@
               <!-- 关键信息 -->
               <div class="">
                 <p>截止日期：2017-12-12</p>
-                <p>要求：需要有上进心的组员一起完成项目。</p><br>
+                <p>要求：{{ info.requires }}</p><br>
               </div>
               
               <div class="">
@@ -121,12 +130,26 @@ nav {
   import Sidebar from './Sidebar.vue'
 
   export default {
+    data() {
+      return {
+        info: {}
+      }
+    },
     components: {
       'sidebar': Sidebar
+    },
+    created: function() {
+      var indexList = this.$store.state.indexResult;
+      for (var i in indexList) {
+        if (indexList[i].id === this.$route.query.id) {
+          // console.log(indexList[i]);
+          this.info = indexList[i];
+          console.log(this.info);
+        }
+      }
+    },
+    methods: {
     }
-  }
-
-  methods: {
   }
 </script>
 

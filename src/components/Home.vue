@@ -40,6 +40,10 @@ nav {
     components: {
       'sidebar': Sidebar,
       'index': Index
+    },
+    created: function () {
+      // todo: 不知道为什么有时候刷新的时候蜜汁延时很高
+      return this.$store.dispatch('initInfo')
     }
   }
 </script>
