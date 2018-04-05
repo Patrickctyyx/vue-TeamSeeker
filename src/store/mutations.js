@@ -14,6 +14,10 @@ export default {
         state.sidebarResult = contentList;
     },
 
+    [types.GET_SIDEBAR_CONTENT_PROJECT] (state, contentList) {
+        state.sidebarResultProject = contentList;
+    },
+
     [types.INIT_INFO] (state) {
         var _self = this;
         axios.get('http://localhost:5000/api/index')
@@ -29,6 +33,15 @@ export default {
         // axios.get('http://119.29.253.254:8000/api/sidebar')
         .then(function (response) {
             state.sidebarResult = response.data;
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+
+        axios.get('http://localhost:5000/api/sidebar?type=1')
+        // axios.get('http://119.29.253.254:8000/api/sidebar')
+        .then(function (response) {
+            state.sidebarResultProject = response.data;
         })
         .catch(function (error) {
             console.log(error);

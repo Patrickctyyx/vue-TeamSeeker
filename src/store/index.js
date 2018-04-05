@@ -7,7 +7,8 @@ Vue.use(Vuex);
 
 const state = {
     indexResult: [],
-    sidebarResult: []
+    sidebarResult: [],
+    sidebarResultProject: []
 }
 
 export default new Vuex.Store({

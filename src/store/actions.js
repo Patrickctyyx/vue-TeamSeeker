@@ -13,6 +13,10 @@ export default {
         commit(types.GET_SIDEBAR_CONTENT, contentList)
     },
 
+    getSidebarProject({ commit }, contentList) {
+        commit(types.GET_SIDEBAR_CONTENT_PROJECT, contentList)
+    },
+
     initInfo({ commit }) {
         commit(types.INIT_INFO)
     }

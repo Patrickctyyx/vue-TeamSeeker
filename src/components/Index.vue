@@ -25,7 +25,9 @@
             <p class="black-text">
               <i class="fa fa-clock-o" aria-hidden="true"></i> {{ result.last_modified.split(" ")[0] }}&nbsp;&nbsp;&nbsp;
               <i class="fa fa-user" aria-hidden="true"></i> 项目人数：{{ result.current_num }}/{{ result.num }}&nbsp;&nbsp;&nbsp;
-              <i class="fa fa-fire" aria-hidden="true"></i> 热度：{{ result.apply_count }}
+              <i class="fa fa-fire" aria-hidden="true"></i> 热度：
+                <span v-if="result.apply_count">{{ result.apply_count }} </span>
+                <span v-else>{{ result.current_num }} </span>
             </p>
           </div>
         </div>

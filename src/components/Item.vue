@@ -33,9 +33,13 @@
                       <span v-else class="new badge red" data-badge-caption="已结束"></span>
                     </h1>
                     <p class="black-text">
-                      <i class="fa fa-clock-o" aria-hidden="true"></i> {{ info.last_modified.split(" ")[0] }}&nbsp;&nbsp;&nbsp;
+                      <i class="fa fa-clock-o" aria-hidden="true"></i>
+                        <span v-if="info.last_modified"> {{ info.last_modified.split(" ")[0] }}&nbsp;&nbsp;&nbsp;</span>
+                        <span v-else> {{ info.last_modified }}&nbsp;&nbsp;&nbsp;</span>
                       <i class="fa fa-user" aria-hidden="true"></i> 项目人数：{{ info.current_num }}/{{ info.num }} &nbsp;&nbsp;&nbsp;
-                      <i class="fa fa-fire" aria-hidden="true"></i> 热度：{{ info.apply_count }} 
+                      <i class="fa fa-fire" aria-hidden="true"></i> 热度：
+                        <span v-if="info.apply_count">{{ info.apply_count }} </span>
+                        <span v-else>{{ info.current_num }} </span>
                     </p><br>
                   </div>
                 </div>
@@ -128,6 +132,7 @@ nav {
 
 <script>
   import Sidebar from './Sidebar.vue'
+  import axios from 'axios'
 
   export default {
     data() {
@@ -140,15 +145,59 @@ nav {
     },
     created: function() {
       var indexList = this.$store.state.indexResult;
+      var flag = 0;
+      var that = this;
       for (var i in indexList) {
         if (indexList[i].id === this.$route.query.id) {
           // console.log(indexList[i]);
           this.info = indexList[i];
-          console.log(this.info);
+          flag = 1;
         }
       }
+      if (flag === 0) {
+        var _self = this;
+        axios.get('http://localhost:5000/api/create/' + this.$route.query.id, {
+        // axios.get('http://119.29.253.254:8000/api/index', {
+        })
+          .then(function (response) {
+            that.info = response.data;
+          })
+          .catch(function (error) {
+            alert('请求错误，请重新尝试!');
+            console.log(error);
+          })
+      }
+      console.log(this.info);
     },
     methods: {
+    },
+    watch: {
+      '$route' (to, from) {
+      var indexList = this.$store.state.indexResult;
+      var flag = 0;
+      var that = this;
+      for (var i in indexList) {
+        if (indexList[i].id === this.$route.query.id) {
+          // console.log(indexList[i]);
+          this.info = indexList[i];
+          flag = 1;
+        }
+      }
+      if (flag === 0) {
+        var _self = this;
+        axios.get('http://localhost:5000/api/create/' + this.$route.query.id, {
+        // axios.get('http://119.29.253.254:8000/api/index', {
+        })
+          .then(function (response) {
+            that.info = response.data;
+          })
+          .catch(function (error) {
+            alert('请求错误，请重新尝试!');
+            console.log(error);
+          })
+      }
+      console.log(this.info);
+      }
     }
   }
 </script>
